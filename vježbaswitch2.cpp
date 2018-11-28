@@ -7,7 +7,7 @@ int main(){
 	int choice;
 	cout << "Odaberite broj 1 za unos i ispis broja." << endl;
 	cout << "Odaberite broj 2 za ispis \"Dobar dan\"" << endl;
-	cout << "Odaberite broj tri za izlaz iz programa." << endl;
+	cout << "Odaberite broj 3 za izlaz iz programa." << endl;
 	cin >> choice;
 	
 	switch (choice) {
