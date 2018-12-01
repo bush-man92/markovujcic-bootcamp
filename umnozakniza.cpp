@@ -7,17 +7,16 @@ int main()
 {
 	int a;
 	int b= 1;
-	int umnozak = 1 ;
+	int umnozak = 1;
 	cin>> a;
 	for (int i = 0; i< a; i++)
 	{
-		
 		cin>>b;
 		
 		umnozak*=b;
-		
-		
-	}
+		}
 	
 	cout<< umnozak;
+	
+	return 0;
 }
