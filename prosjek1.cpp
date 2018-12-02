@@ -8,6 +8,7 @@ int main() {
 	int a = 1;
 	vector<int> vektor;
 	int prosjek = 0;
+	
 	for (int i = 0; i < a;){
 		cin >> a;
 		vektor.push_back(a);
