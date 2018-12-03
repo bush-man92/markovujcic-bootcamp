@@ -4,7 +4,7 @@
 
 using namespace std;
 
-main () {
+int main (){
 	float S = 1;
 	vector<float> vektor;
 	
