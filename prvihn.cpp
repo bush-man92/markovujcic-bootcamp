@@ -4,8 +4,8 @@ using namespace std;
 int main (){
 	int a;
 	cin >> a;
-	for (int i = 1; i <= a; i++){
-		cout << i << endl;
+	for (int i = 0; i < a;){
+		cout << a-- << endl;
 		}
 }
 

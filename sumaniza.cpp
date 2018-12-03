@@ -1,17 +1,16 @@
 #include <iostream>
 #include <iomanip>
-#include <cmath>
 
 using namespace std;
 
 int main() {
   int N ;
   int rezultat = 0;
-  cin>> N;
+  cin >> N;
   
   for (int i = 0; i < N; i++) {
   	int a;
-  	cin>>a;
+  	cin >> a;
   	rezultat += a;
   	
   }

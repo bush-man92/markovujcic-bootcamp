@@ -6,17 +6,16 @@ using namespace std;
 
 int main() {
 	int a = 1;
-	vector<int> vektor;
 	int prosjek = 0;
+	int counter = 0;
 	
 	for (int i = 0; i < a;){
 		cin >> a;
-		vektor.push_back(a);
+		counter += 1;
+		prosjek += a;
 	}
-	for (int i = 0; i < vektor.size(); i++) {
-		prosjek += vektor[i];
-	}
-	cout << setprecision(2) << fixed << float(prosjek) / (vektor.size() - 1);
+	
+	cout << setprecision(2) << fixed << float(prosjek) / (counter - 1);
 	
 	return 0;
 	
