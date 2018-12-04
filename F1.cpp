@@ -13,7 +13,7 @@ int main (){
 		vektor.push_back(S);
 	}
 
-	int bolid1, bolid2;
+	float bolid1, bolid2;
 	cin >> bolid1 >> bolid2;
 	cout << vektor[vektor.size() - bolid2] - vektor[vektor.size() - bolid1];
 }
