@@ -10,6 +10,7 @@ void bottles() {
 }
 
 
+
 int zbrajanje() {
 	int x = 1;
 	int zbroj = 0;
@@ -49,7 +50,7 @@ int zbroj(int x, int y){
 	return x + y;
 }
 
-int minus(int x, int y) {
+int oduzimanje(int x, int y) {
 	return x - y;
 }
 
@@ -90,27 +91,33 @@ int menu() {
 			cout << "Upisite operaciju: " << endl;
 			cin >> x >> z >> y;
 			if (z == '+') {
-				zbroj(x, y);
+				cout << zbroj(x, y) << endl;
 			}
 			else if(z == '-') {
-				minus(x, y);
+				cout << oduzimanje(x, y) << endl;
 			}
 			else if(z == '*') {
-				umnozak(x, y);
+				cout << umnozak(x, y) << endl ;
 			}
 			else if(z == '/'){
-				dijeljenje(x, y);
+				cout << dijeljenje(x, y) << endl;
 			}
+			menu();
+			break;
 		default:
 			cout << "Broj nije u menu" << endl;
 			menu();
 	}
+}
 
+int promjena(int a,int b) {
+	cin >> a >> b;
 }
 
 int main() {
-	menu();
-	
-	
+	int a = 7;
+	int b = 19;
+	//menu();
+	cout << a << " " << b << endl;
 }
 
