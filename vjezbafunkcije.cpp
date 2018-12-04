@@ -49,7 +49,7 @@ int zbroj(int x, int y){
 	return x + y;
 }
 
-int minus(int x, int y) {
+int oduzimanje(int x, int y) {
 	return x - y;
 }
 
@@ -90,16 +90,20 @@ int menu() {
 			cout << "Upisite operaciju: " << endl;
 			cin >> x >> z >> y;
 			if (z == '+') {
-				zbroj(x, y);
+				cout << zbroj(x, y) << endl;
+				menu();
 			}
 			else if(z == '-') {
-				minus(x, y);
+				cout << oduzimanje(x, y) << endl;
+				menu();
 			}
 			else if(z == '*') {
-				umnozak(x, y);
+				cout << umnozak(x, y) << endl;
+				menu();
 			}
 			else if(z == '/'){
-				dijeljenje(x, y);
+				cout << dijeljenje(x, y) << endl;
+				menu();
 			}
 		default:
 			cout << "Broj nije u menu" << endl;
