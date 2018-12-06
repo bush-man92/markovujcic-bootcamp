@@ -21,15 +21,13 @@ int main() {
 		listici.push_back(listic);
 	}
 	
-	cout << dobitak << endl;
-	
 	for (int j = 0; j < 3; j++){
-		int counter;
+		int counter = 0;
 		for (int i = 5; i >= 0; i--) {
 			if (listici[j][i] == dobitak[i]) {
 				counter += 1;
 			}
-			else if (listici[j][i] != dobitak[i]) {
+			else{
 				break;
 			}
 		}
@@ -51,7 +49,6 @@ int main() {
 		else {
 			cout << "Nedobitan" << endl;
 		}
-		cout << counter << endl;
 		counter = 0;
 	}
 }
