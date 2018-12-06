@@ -10,6 +10,7 @@ void bottles() {
 }
 
 
+
 int zbrajanje() {
 	int x = 1;
 	int zbroj = 0;
@@ -105,16 +106,21 @@ int menu() {
 				cout << dijeljenje(x, y) << endl;
 				menu();
 			}
+			menu();
+			break;
 		default:
 			cout << "Broj nije u menu" << endl;
 			menu();
 	}
+}
 
+int promjena(int a,int b) {
+	cin >> a >> b;
 }
 
 int main() {
-	menu();
-	
-	
+	int a = 7;
+	int b = 19;
+	//menu();
+	cout << a << " " << b << endl;
 }
-
