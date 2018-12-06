@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-#include <vector>
 
 using namespace std;
 
@@ -13,5 +12,5 @@ int main() {
 		cin >> potrosnja;
 		N += mega - potrosnja;
 		}
-	cout << N + 10;
+	cout << N + mega;
 }

@@ -92,15 +92,19 @@ int menu() {
 			cin >> x >> z >> y;
 			if (z == '+') {
 				cout << zbroj(x, y) << endl;
+				menu();
 			}
 			else if(z == '-') {
 				cout << oduzimanje(x, y) << endl;
+				menu();
 			}
 			else if(z == '*') {
-				cout << umnozak(x, y) << endl ;
+				cout << umnozak(x, y) << endl;
+				menu();
 			}
 			else if(z == '/'){
 				cout << dijeljenje(x, y) << endl;
+				menu();
 			}
 			menu();
 			break;
@@ -120,4 +124,3 @@ int main() {
 	//menu();
 	cout << a << " " << b << endl;
 }
-

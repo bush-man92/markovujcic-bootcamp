@@ -9,7 +9,7 @@ int main() {
 	
 	for (int i = 1; i <= 10; i++){
 		for (int j = 1; j <= 10; j++){
-			polje[i - 1][j - 1] = i * j * 3;
+			polje[i - 1][j - 1] = i * j;
 		}
 	}
 	
@@ -17,7 +17,7 @@ int main() {
 		for (int j = 1; j <= 10; j++) {
 			cout << polje[i - 1][j - 1] << '\t';
 		}
-		cout << endl << endl;
+		cout << endl;
 	}
 	
 	/*int polje2[2][2][2];
