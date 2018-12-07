@@ -15,5 +15,11 @@ int main (){
 
 	float bolid1, bolid2;
 	cin >> bolid1 >> bolid2;
-	cout << vektor[vektor.size() - bolid2] - vektor[vektor.size() - bolid1];
+	float A = float(vektor[vektor.size() - bolid2]) - vektor[vektor.size() - bolid1];
+	if ( A == 10) {
+		cout << setprecision(1) << fixed << A;
+	}
+	else {
+		cout << A;
+	}
 }

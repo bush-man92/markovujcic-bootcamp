@@ -6,36 +6,28 @@
 using namespace std;
 
 int main() {
-	int N = 1;
+	int evolucije_ukupno = 0;
+	int evolucija_maximalna = 0;
+	int N = 0;
 	cin >> N;
-	vector<string> pokemoni;
-	vector<int> slatko;
-	vector<int> slatko2;
-	int najveci[N];
-	int evolve = 0;
 	for (int i = 0; i < N; i++) {
-		string pokemon = "";
-		int y = 0;
-		cin >> pokemon;
-		pokemoni.push_back(pokemon);
-		int Ki, Mi;
-		cin >> Ki >> Mi;
-		y = Mi / Ki;
-		Mi += y * 2;
-		slatko.push_back(Ki);
-		slatko2.push_back(Mi);
-	}
-	for (int i = 0; i < N; i++) {
-		int x = 0;
-		x = slatko2[i] / slatko[i];
-		evolve += x;
-		najveci[i] = x;
-	}
-	cout << evolve << endl;
-	for (int i = 0; i < N; i++) {
-		if (najveci[i] == *max_element(najveci, najveci + N)) {
-			cout << pokemoni[i] << i;
-			break;
+		int evolucija_trenutna = 0;
+		string name = "";
+		cin >> name;
+		int K = 0;
+		cin >> K;
+		int M = 0;
+		cin >> M;
+		while (M >= K) {
+			evolucije_ukupno += 1;
+			evolucije_trenutna += 1;
+			M -= K;
+			M += 2;
+		}
+		if (evolucija_trenutna > evolucija_maximalna) {
+			evolucija trenutna = evolucija maximalna
 		}
 	}
+	cout << evolucije_ukupno << endl;
 }
+
