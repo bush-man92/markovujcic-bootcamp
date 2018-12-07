@@ -113,14 +113,6 @@ int menu() {
 			menu();
 	}
 }
-
-int promjena(int a,int b) {
-	cin >> a >> b;
-}
-
 int main() {
-	int a = 7;
-	int b = 19;
-	//menu();
-	cout << a << " " << b << endl;
+	menu();
 }
