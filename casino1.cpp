@@ -62,6 +62,9 @@ void kockica(int &pare) {
 
 } 
 void slot () {
+	
+
+
 
 
 int korisnik;
@@ -94,12 +97,23 @@ else {
 while (korisnik==1);{
 }
 }
-
-
+void krizic(){
+	int polje[3][3]={1,2,3,4,5,6,7,8,9 };
+	 
+	 for (int i=0; i<3; i++){
+	 	 for (int j=0; j<3; j++){
+	 	 	cout<<polje[i][j];
+		  }
+	 	 cout<<endl;
+	 }
+	
+}
 int main()
 {
-	slot ();
+	krizic ();
 	/*
+	slot ();
+	
 	iznos iznos1;
 	kockica(iznos1.pare=1000);
 	
