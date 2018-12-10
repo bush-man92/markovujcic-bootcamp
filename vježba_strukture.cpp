@@ -16,10 +16,6 @@ void pomak_broda(int &a, int &b) {
 	srand(time(NULL));
 	pomak_x = (rand() % 4);
 	pomak_y = (rand() % 4);
-	random_plus_minus = (rand( % 2))
-	if (random_plus_minus == 0) {
-		
-	}
 	a += pomak_x;
 	b += pomak_y;
 }
