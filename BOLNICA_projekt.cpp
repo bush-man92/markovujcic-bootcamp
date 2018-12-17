@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <vector>
 #include <fstream>
+#include <stdlib.h> 
 
 using namespace std;
 
@@ -28,9 +29,9 @@ void upis_u_datoteku() {
 	ofstream myfile;
 	myfile.open ("lista_pacijenata.txt");
 	for (int i = 0; i < pacijenti.size(); i++) {
-		myfile << pacijenti[i].ime << "\t" << pacijenti[i].prezime << "\t" << pacijenti[i].MBO;
+		myfile << pacijenti[i].ime << endl << pacijenti[i].prezime << endl << pacijenti[i].MBO << endl;
 		for (int j = 0; j < pacijenti[i].popis_lijekova.size(); j++) {
-			myfile << "\t" << pacijenti[i].popis_lijekova[j];
+			myfile << pacijenti[i].popis_lijekova[j] << " " << endl;
 		}
 		cout << endl;
 	}
@@ -39,8 +40,15 @@ void upis_u_datoteku() {
 
 void iz_datoteke() {
 	ifstream myfile;
-	myfile.open ("lista_pacijenata.txt");
-	getline(myfile, line)
+	string line;
+	myfile.open("lista_pacijenata.txt");
+	vector<string> temp;
+	while(getline(myfile, line)) {
+		temp.push_back(line);
+	}
+	for (int i = 0; i < temp.size(); i++) {
+		pacijent
+	}
 }
 
 void unos_pacijenata() {
@@ -63,11 +71,9 @@ void unos_pacijenata() {
 	for (int j = 0; j < 1;) {
 		string temp_lijekovi = "";
 		cin >> temp_lijekovi;
+		temp.push_back(temp_lijekovi);
 		if (temp_lijekovi == "Q") {
 			break;
-		}
-		else {
-			temp.push_back(temp_lijekovi);
 		}
 	}
 	pacijent.popis_lijekova = temp;
@@ -81,14 +87,18 @@ void ispis() {
 	prikaz("ISPIS PACIJENATA");
 	cout << "1 za povratak na izbornik" << endl;
 	cout << endl;
-	for (int i = 0; i < pacijenti.size(); i++) {
-		cout << pacijenti[i].ime << "\t" << pacijenti[i].prezime << "\t" << pacijenti[i].MBO << endl;
-		for (int j = 0; j < pacijenti[i].popis_lijekova.size(); j++) {
-			cout << "LIJEK: " << "\t" << pacijenti[i].popis_lijekova[j] << "\t" << endl;
+	if (pacijenti.size() > 0) {
+		for (int i = 0; i < pacijenti.size(); i++) {
+			cout << pacijenti[i].ime << "\t" << pacijenti[i].prezime << "\t" << pacijenti[i].MBO << endl;;
+			for (int j = 0; j < pacijenti[i].popis_lijekova.size(); j++) {
+				if (pacijenti[i].popis_lijekova[j] != "Q") {
+					cout << "LIJEK: " << "\t" << pacijenti[i].popis_lijekova[j] << "\t" << endl;
+				}
+			}
+			cout << endl;
 		}
-		cout << endl;
 	}
-	int choice = 0;
+	int choice;
 	cin >> choice;
 	if (choice == 1) {
 		main();
@@ -115,5 +125,8 @@ int main() {
 	}
 	else if (choice == 2) {
 		ispis();
+	}
+	else if (choice == 3) {
+		iz_datoteke();
 	}
 }
