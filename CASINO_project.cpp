@@ -345,7 +345,7 @@ void isplata_novca() {
 	cin >> provjera;
 	if (provjera == 'y' || provjera  == 'Y') {
 		if (zamjena > broj_chipova) {
-			kolicina_novca += broj_chipova * 5;
+			kolicina_novca += (broj_chipova + 1) * 5;
 			broj_chipova = 0;
 		}
 		else {
