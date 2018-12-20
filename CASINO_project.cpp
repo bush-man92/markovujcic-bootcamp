@@ -29,15 +29,21 @@ void duplo_ili_nista() {
 	string boje[4] = {"PIK", "HERC", "TREF", "KARO"};
 	int karte [13];
 	srand(time(NULL));
-	int boja = rand() % 4 + 1;
-	int karta = rand() % 13 + 1;
+	int boja = rand() % 4;
+	int karta = rand() % 13;
+	cout << endl;
+	cout << "Stisnite 1 za duplo ili nista" << endl;
+	cout << "Stisnite 2 za povratak na izbornik" << endl;
+	cout << endl;
+	int choice;
+	cin >> choice;
 	for (int i = 0; i < 26; i++){
-		int choice;
-		cin >> choice;
-		cout << endl;
-		cout << "Stisnite 1 za duplo ili nista" << endl;
-		cout << "Stisnite 2 za povratak na izbornik" << endl;
-		cout << endl;
+		if (choice == 1) {
+			duplo_ili_nista();
+		}
+		else if (choice ==  2) {
+			izbornik();
+		}
 	}
 }
 
