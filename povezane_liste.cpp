@@ -90,8 +90,6 @@ int main() {
 	
 	insertElementFront(head, 1);
 	insertElementFront(head, 2);
-	insertElementFront(head, 3);
-	insertElementFront(head, 4);
 	
 	cout << element_counter(head) << endl;
 	pretrazivanje_liste(head);
