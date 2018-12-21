@@ -25,6 +25,19 @@ void prikaz(string name) {
 	cout << endl;
 }
 
+void kartoteka_sort() {
+	for (int i = 0; i < pacijenti.size();i++) {
+		if (pacijenti[i].MBO > pacijenti[i + 4])
+		for (int i = 0; i < pacijenti.size(); i++) {
+			if(pacijenti[i].MBO > pacijenti[i + 5].MBO) {
+				kartoteka pacijent_temp;
+				pacijent_temp = pacijenti[i + 5];
+				pacijent[i + 5] = pacijent[i];
+			}
+		}
+	}
+}
+
 void upis_u_datoteku() {
 	ofstream myfile;
 	myfile.open ("lista_pacijenata.txt");
@@ -38,6 +51,16 @@ void upis_u_datoteku() {
 	myfile.close();
 }
 
+bool MBO_checker (int MBO) {
+	bool checker = false;
+	for (int i = 0; i < pacijenti.size(); i++) {
+		if (MBO == pacijenti[i].MBO) {
+			checker = true;
+		}
+	}
+	return checker;
+}
+
 void iz_datoteke() {
 	ifstream myfile;
 	string line;
@@ -47,6 +70,7 @@ void iz_datoteke() {
 	while(getline(myfile, line)) {
 		temp.push_back(line);
 	}
+	myfile.close();
 	for (int i = 0; i < temp.size(); i++) {
 		vector<string> temp_lijekovi;
 		if (temp[i] != "Q") {
@@ -54,10 +78,13 @@ void iz_datoteke() {
 		}
 		else {
 			for (int j = 0; j < 1; j++) {
+				int MBO = atoi(temp2[2].c_str());
+				if (MBO_checker(MBO) == true) {
+					break;
+				}
 				kartoteka pacijent;
-				pacijent.ime = temp[0];
+				pacijent.ime = temp2[0];
 				pacijent.prezime = temp2[1];
-				int MBO = atoi(temp[2].c_str());
 				pacijent.MBO = MBO;
 				for (int k = 3; k < temp2.size(); k++) {
 					temp_lijekovi.push_back(temp2[k]);
@@ -66,7 +93,6 @@ void iz_datoteke() {
 				pacijent.popis_lijekova = temp_lijekovi;
 				pacijenti.push_back(pacijent);
 				temp2.clear();
-				temp_lijekovi.clear();
 			}
 		}
 	}
@@ -77,7 +103,17 @@ void unos_pacijenata() {
 	prikaz("UNOS PACIJENATA U KARTOTEKU");
 	kartoteka pacijent;
 	cout << "MBO: " << endl;
-	cin >> pacijent.MBO;
+	int MBO;
+	cin >> MBO;
+	if (MBO_checker(MBO) == true) {
+		cout << "Taj pacijent vec postoji u kartoteci" << endl;
+		char bla;
+		cin >> bla;
+		main();
+	}
+	else {
+		pacijent.MBO = MBO;
+	}
 	cout << endl;
 	cout << "Ime: " << endl;
 	cin >> pacijent.ime;
@@ -110,12 +146,15 @@ void ispis() {
 	cout << endl;
 	if (pacijenti.size() > 0) {
 		for (int i = 0; i < pacijenti.size(); i++) {
-			cout << pacijenti[i].ime << "\t" << pacijenti[i].prezime << "\t" << pacijenti[i].MBO << endl;;
+			cout << pacijenti[i].ime << " " << pacijenti[i].prezime << " " << pacijenti[i].MBO << endl;
+			cout << endl;
+			cout << "_____________________________________________________________" << endl;
 			for (int j = 0; j < pacijenti[i].popis_lijekova.size(); j++) {
 				if (pacijenti[i].popis_lijekova[j] != "Q") {
-					cout << "LIJEK: " << "\t" << pacijenti[i].popis_lijekova[j] << "\t" << endl;
+					cout << "LIJEK: " << " " << pacijenti[i].popis_lijekova[j] << " " << endl;
 				}
 			}
+			cout << endl;
 			cout << endl;
 		}
 	}
@@ -149,6 +188,5 @@ int main() {
 		ispis();
 	}
 	else if (choice == 3) {
-		iz_datoteke();
 	}
 }
