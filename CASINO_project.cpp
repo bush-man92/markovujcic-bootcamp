@@ -17,32 +17,86 @@ void provjera_chipova(int, int);
 void kockice(int);
 void kockice_menu();
 void kockice_povratak(int);
+void duplo_ili_nista(int);
 
 string user_name = "";
 int broj_chipova = 0;
 int kolicina_novca = 0;
 
-
-void duplo_ili_nista() {
+void duplo_ili_nista_meni() {
 	system("cls");
 	prikaz_stanja();
+	cout << endl;
+	cout << "Stisnite 1 za igru" << endl;
+	cout << "Stisnite 2 za povratak na izbornik" << endl;
+	int izbor;
+	int ulog;
+	cin >> izbor;
+	if (izbor == 1) {
+		cout << "Unesite ulog: " << endl;
+		cin >> ulog;
+		provjera_chipova(ulog, 3);
+		broj_chipova -= ulog;
+		duplo_ili_nista(ulog);
+	}
+	else if (izbor == 2) {
+		izbornik();
+	}
+	else {
+		duplo_ili_nista_meni();
+	}
+}
+
+void duplo_ili_nista(int ulog) {
 	string boje[4] = {"PIK", "HERC", "TREF", "KARO"};
 	int karte [13];
+	for (int i = 0; i < 13; i++) {
+		karte[i] = i + 1;
+	}
 	srand(time(NULL));
-	int boja = rand() % 4;
-	int karta = rand() % 13;
-	cout << endl;
-	cout << "Stisnite 1 za duplo ili nista" << endl;
-	cout << "Stisnite 2 za povratak na izbornik" << endl;
-	cout << endl;
-	int choice;
-	cin >> choice;
-	for (int i = 0; i < 26; i++){
-		if (choice == 1) {
-			duplo_ili_nista();
+	for (int i = 0; i < 26; i++) {
+		system("cls");
+		prikaz_stanja();
+		int boja = rand() % 4;
+		int karta = rand() % 13;
+		cout << endl;
+		cout << "Vasa karta je: " << endl;
+		cout << boje[boja] << " " << karte[karta] << endl;
+		cout << endl;
+		int boja2 = rand() % 4;
+		int karta2 = rand() % 13;
+		cout << "Protivnicka karta je: " << endl;
+		cout << boje[boja2] <<  " " << karte[karta2] << endl;
+		cout << endl;
+		if (karta2 > karta) {
+			cout << "Izgubili ste" << endl;
+			cout << "Stisnite 1 za povratak na igru" << endl;
+			int choice;
+			cin >> choice;
+			if (choice == 1) {
+				duplo_ili_nista_meni();
+			}
+			else {
+				duplo_ili_nista_meni();
+			}
 		}
-		else if (choice ==  2) {
-			izbornik();
+		else if (karta2 == karta) {
+			cout << "Izjednaceno" << endl;
+			cout << "Nitko ne dobiva nista" << endl;
+		}
+		else if (karta2 < karta) {
+			ulog *= 2;
+			cout << "Stisnite 1 za duplo ili nista (osvojili ste " << ulog << " zetona)"  << endl;
+			cout << "Stisnite 2 za odustajanje" << endl;
+			int choice;
+			cin >> choice;
+			if (choice == 1) {
+				continue;
+			}
+			else if (choice == 2) {
+				broj_chipova += ulog;
+				duplo_ili_nista_meni();
+			}
 		}
 	}
 }
@@ -193,6 +247,9 @@ void provjera_chipova(int ulog, int funkcija) {
 		else if(funkcija == 2) {
 			kockice_menu();
 		}
+		else if (funkcija == 3) {
+			duplo_ili_nista_meni();
+		}
 	}
 }
 
@@ -307,7 +364,7 @@ void izbor_igara () {
 		kockice_menu();
 	}
 	else if (choice == 3) {
-		duplo_ili_nista();
+		duplo_ili_nista_meni();
 	}
 	else if (choice == 4) {
 		izbornik();
@@ -351,7 +408,7 @@ void isplata_novca() {
 	cin >> provjera;
 	if (provjera == 'y' || provjera  == 'Y') {
 		if (zamjena > broj_chipova) {
-			kolicina_novca += (broj_chipova + 1) * 5;
+			kolicina_novca += broj_chipova * 5;
 			broj_chipova = 0;
 		}
 		else {
@@ -402,7 +459,7 @@ void uplata_povratak() {
 		izbornik();
 	}
 	else {
-		cout << "Niste unijeli ispravan odabir" << endl;
+		uplata_povratak();
 	}
 }
 
@@ -435,14 +492,14 @@ void novac_ogranicenje() {
 	cout << endl;
 	cout << "Upisite broj novca s kojim ulazite: " << endl;
 	cout << endl;
-	int novac = 0;
+	int novac;
 	cin >> novac;
 	if (novac > 10001) {
 		cout << endl;
 		cout << "Ogranicenje unesenog novca u Casino je 10,000" << endl;
 		novac_ogranicenje();
 	}
-	else if (novac < 0) {
+	else if (novac < 5) {
 		cout << endl;
 		cout << "Ne mozete uci u Casino bez novca" << endl;
 		novac_ogranicenje();
