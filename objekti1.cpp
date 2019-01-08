@@ -5,8 +5,8 @@ using namespace std;
 
 class Racun{
 	protected:
-		int broj_racuna = 0;
-		int stanje_racuna = 0;
+		int broj_racuna;
+		int stanje_racuna;
 		int get_stanje_racuna() {
 			return stanje_racuna;
 		}
@@ -15,6 +15,7 @@ class Racun{
 		}
 	public:
 		Racun() {
+			set_stanje_racuna(0);
 		}
 		void uplata(int uplata) {
 			set_stanje_racuna(get_stanje_racuna() + uplata);
@@ -27,7 +28,10 @@ class Racun{
 		}
 };
 
-int main {
+int main() {
 	Racun racun1;
+	racun1.stanje();
+	racun1.uplata(100);
+	racun1.stanje();
 }
 
