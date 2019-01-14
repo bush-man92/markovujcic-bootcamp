@@ -419,7 +419,7 @@ void account_menu(Korisnik korisnik1) {
 			}
 		}
 		for (int i = 0; i < racuni_korisnika.size(); i++) {
-			cout << i + 1 << "     " << " Tip racuna: " << racuni_korisnika[i].get_tip_racuna() << "    ";
+			cout << i << "     " << " Tip racuna: " << racuni_korisnika[i].get_tip_racuna() << "    ";
 			cout << " Broj racuna: " << racuni_korisnika[i].get_broj_racuna() << "     ";
 			cout << " Stanje racuna: " << racuni_korisnika[i].get_stanje_racuna() << endl;
 			cout << endl;
@@ -428,15 +428,15 @@ void account_menu(Korisnik korisnik1) {
 		cout << endl;
 		cout << endl;
 		cout << "Odaberite racun kojim zelite poslovati" << endl;
-		cout << "Stisnite 0 za stvaranje novog racuna" << endl;
+		cout << "Stisnite 98 za stvaranje novog racuna" << endl;
 		cout << "Stisnite 99 za vracanje logout" << endl;
 		int choice;
 		cin >> choice;
-		if (choice == 0) {
+		if (choice == 98) {
 			stvaranje_racuna_meni(korisnik1, top2);
 		}
 		else if(choice < racuni_korisnika.size()) {
-			special_account_menu(racuni_korisnika[choice - 1], korisnik1);
+			special_account_menu(racuni_korisnika[choice], korisnik1);
 		}
 		else if (choice == 99) {
 			string welcome =  "Dobrodosli u Banka.app";
