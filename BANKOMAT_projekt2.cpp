@@ -22,6 +22,7 @@ class Racun{
 	protected:
 		int broj_racuna;
 		int stanje_racuna;
+		string tip_racuna;
 		
 	public:
 		
@@ -46,16 +47,34 @@ class Racun{
 			string broj = str1.str();
 			return broj;
 		}
+		string get_tip_racuna() {
+			return tip_racuna;
+		}
 		void uplata(int uplata) {
 			set_stanje_racuna(get_stanje_racuna() + uplata);
 		}
 		void isplata(int isplata) {
 			set_stanje_racuna(get_stanje_racuna() - isplata);
 		}
+		void set_tip_racuna(string tip) {
+			tip_racuna = tip;
+		}
 		void set_stanje_racuna(int iznos) {
 			stanje_racuna = iznos;
 		}
 		void set_broj_racuna(int broj) {
+			broj_racuna = broj;
+		}
+		void set_stanje_racuna_str(string iznos) {
+			stringstream stanje_broj(iznos);
+			int broj = 0;
+			stanje_broj >> broj;
+			stanje_racuna = broj;
+		}
+		void set_broj_racuna_str(string broj_racuna_str) {
+			stringstream broj_racuna_1(broj_racuna_str);
+			int broj = 0;
+			broj_racuna_1 >> broj;
 			broj_racuna = broj;
 		}
 };
@@ -97,9 +116,6 @@ class Korisnik {
 			int broj = 0;
 			broj2 >> broj;
 			return broj;
-		}
-		string get_lozinka() {
-			return lozinka;
 		}
 		
 	protected:
@@ -208,10 +224,9 @@ void upis(string welcome, int check) {
 	}
 	else if(provjera(ime, prezime, lozinka, welcome) == true && check == 1) {
 		string id = "";
-		for (int i = 2; i < vector_korisnici.size(); i+3) {
+		for (int i = 2; i < vector_korisnici.size(); i += 3) {
 			if (lozinka == vector_korisnici[i]) {
 				id = vector_korisnici[i + 1];
-				break;
 			}
 		}
 		create_user(ime, prezime, lozinka, id);
@@ -225,18 +240,21 @@ void create_user(string ime, string prezime, string lozinka, string id) {
 
 bool provjera(string ime, string prezime, string lozinka, string welcome) {
 	if (vector_korisnici.size() > 3) {
-		for (int i = 0; i < vector_korisnici.size(); i+4){
-			if (ime == vector_korisnici[i] && prezime == vector_korisnici[i + 1]) {
-				if (lozinka == vector_korisnici[i + 2]) {
+		for (int i = 0; i < vector_korisnici.size(); i += 4){
+			if (vector_korisnici[i] == ime && vector_korisnici[i + 1] == prezime) {
+				if (vector_korisnici[i+2] == lozinka) {
 					return true;
 				}
 				else {
-					cout << "Upisali ste krivu lozinku!" << endl;
+					top(welcome);
+					cout << "Unijeli ste pogresnu lozinku!" << endl;
+					cout << endl;
+					system("pause");
 					upis(welcome, 1);
 				}
 			}
 			else {
-				return false;		
+				continue;
 			}
 		}
 	}
@@ -246,8 +264,8 @@ bool provjera(string ime, string prezime, string lozinka, string welcome) {
 }
 
 bool racuni_provjera(string id) {
-	if (vector_racuni.size() > 2) {
-		for (int i = 0; i < vector_racuni.size(); i+3) {
+	if (vector_racuni.size() > 3) {
+		for (int i = 0; i < vector_racuni.size(); i += 4) {
 			if (vector_racuni[i] == id) {
 				return true;
 			}
@@ -261,77 +279,115 @@ bool racuni_provjera(string id) {
 	}
 }
 
+void stvaranje_racuna_ziro(Korisnik korisnik1) {
+	Racun racun1 = korisnik1.create_account();
+	vector_racuni.push_back(korisnik1.get_id());
+	vector_racuni.push_back("ziro");
+	int broj_racuna = korisnik1.get_id_int() * 10 + 1;
+	racun1.set_broj_racuna(broj_racuna);
+	vector_racuni.push_back(racun1.get_broj_racuna_str());
+	vector_racuni.push_back(racun1.get_stanje_racuna_str());
+	save_racun();
+	account_menu(korisnik1);
+}
+
+void stvaranje_racuna_tekuci(Korisnik korisnik1) {
+	Racun racun1 = korisnik1.create_account();
+	vector_racuni.push_back(korisnik1.get_id());
+	vector_racuni.push_back("tekuci");
+	int broj_racuna = korisnik1.get_id_int() * 10 + 2;
+	racun1.set_broj_racuna(broj_racuna);
+	vector_racuni.push_back(racun1.get_broj_racuna_str());
+	vector_racuni.push_back(racun1.get_stanje_racuna_str());
+	save_racun();
+	account_menu(korisnik1);
+}
+
+void stvaranje_racuna_meni(Korisnik korisnik1, string top2) {
+	top(top2);
+	cout << "Stisnite 1 za stvaranje ziro racuna" << endl;
+	cout << "Stisnite 2 za stvaranje tekuceg racuna" << endl;
+	int choice2;
+	cin >> choice2;
+	if (choice2 == 1) {
+		stvaranje_racuna_ziro(korisnik1);
+	}
+	else if (choice2 == 2) {
+		stvaranje_racuna_tekuci(korisnik1);
+	}
+	else {
+		stvaranje_racuna_meni(korisnik1, top2);
+	}
+}
+
+void stvaranje_racuna(Korisnik korisnik1, string top2) {
+	top(top2);
+	cout << "Nemate racun u banci" << endl;
+	cout << endl;
+	cout << endl;
+	cout << "Zelite li stvoriti novi racun? (y/n)" << endl;
+	char choice;
+	cin >> choice;
+	if (choice == 'y' || choice == 'Y') {
+		stvaranje_racuna_meni(korisnik1, top2);
+	}
+	else if (choice == 'n' || choice == 'N') {
+		top(top2);
+		cout << "Zelite li izaci iz applikacije? (y/n)" << endl;
+		char choice3;
+		cin >> choice3;
+		if (choice3 == 'y' || choice3 == 'Y') {
+			}
+		else if (choice3 == 'n' || choice3 == 'N') {
+			stvaranje_racuna(korisnik1, top2);
+		}
+		else {
+			stvaranje_racuna(korisnik1, top2);
+		}
+	}
+	else {
+		stvaranje_racuna(korisnik1, top2);
+	}
+}
+
 void account_menu(Korisnik korisnik1) {
 	string top2 = korisnik1.get_name() + " " + korisnik1.get_surname();
 	top(top2);
 	if (racuni_provjera(korisnik1.get_id()) == false) {
-		cout << "Nemate ziro racun u banci" << endl;
-		cout << endl;
-		cout << endl;
-		cout << "Nemate tekuci racun u banci" << endl;
-		cout << endl;
-		cout << endl;
-		cout << "Zelite li stvoriti novi racun? (y/n)" << endl;
-		char choice;
-		cin >> choice;
-		if (choice == 'y' || choice == 'Y') {
-			top(top2);
-			cout << "Stisnite 1 za stvaranje ziro racuna" << endl;
-			cout << "Stisnite 2 za stvaranje tekuceg racuna" << endl;
-			int choice3;
-			cin >> choice3;
-			if (choice3 == 1) {
+		stvaranje_racuna(korisnik1, top2);
+	}
+	else {
+		vector<Racun> racuni_korisnika;
+		for (int i = 0; i < vector_racuni.size(); i += 4) {
+			if (vector_racuni[i] == korisnik1.get_id()) {
 				Racun racun1 = korisnik1.create_account();
-				top(top2);
-				cout << "Stanje na vasem racunu je " << racun1.get_stanje_racuna();
-				vector_racuni.push_back(korisnik1.get_id());
-				racun1.set_broj_racuna(vector_racuni.size());
-				vector_racuni.push_back(racun1.get_broj_racuna_str());
-				vector_racuni.push_back(racun1.get_stanje_racuna_str());
-				cout << endl;
-				save_racun();
-				system("pause");
-				account_menu(korisnik1);
-			}
-			else if (choice3 == 2) {
-				Racun racun1 = korisnik1.create_account();
-				top(top2);
-				cout << "Stanje na vasem racunu je " << racun1.get_stanje_racuna();
-				vector_racuni.push_back(korisnik1.get_id());
-				racun1.set_broj_racuna(vector_racuni.size() + 1);
-				vector_racuni.push_back(racun1.get_broj_racuna_str());
-				vector_racuni.push_back(racun1.get_stanje_racuna_str());
-				cout << endl;
-				save_racun();
-				system("pause");
-				account_menu(korisnik1);
+				racun1.set_tip_racuna(vector_racuni[i + 1]);
+				racun1.set_broj_racuna_str(vector_racuni[i + 2]);
+				racun1.set_stanje_racuna_str(vector_racuni[i + 3]);
+				racuni_korisnika.push_back(racun1);
 			}
 			else {
-				account_menu(korisnik1);
+				continue;
 			}
 		}
-		else if (choice == 'n' || choice == 'N') {
-			top(top2);
-			cout << "Zelite li izaci iz applikacije? (y/n)" << endl;
-			char choice2;
-			cin >> choice2;
-			if (choice2 == 'y' || choice2 == 'Y') {
-			}
-			else if (choice2 == 'n' || choice2 == 'N') {
-				account_menu(korisnik1);
-			}
+		for (int i = 0; i < racuni_korisnika.size(); i++) {
+			cout << i + 1 << "     " << " Tip racuna: " << racuni_korisnika[i].get_tip_racuna() << "    ";
+			cout << " Broj racuna: " << racuni_korisnika[i].get_broj_racuna() << "     ";
+			cout << " Stanje racuna: " << racuni_korisnika[i].get_stanje_racuna() << endl;
+			cout << endl;
+		}
+		cout << endl;
+		cout << endl;
+		cout << endl;
+		cout << "Odaberite racun kojim zelite poslovati" << endl;
+		cout << "Stisnite 0 za stvaranje novog racuna" << endl;
+		int choice;
+		cin >> choice;
+		if (choice == 0) {
+			stvaranje_racuna_meni(korisnik1, top2);
 		}
 		else {
 			account_menu(korisnik1);
-		}
-	}
-	else {
-		top(top2);
-		for (int i = 0; i < vector_racuni.size(); i+3) {
-			if (korisnik1.get_id() == vector_racuni[i]) {
-				cout << "Broj racuna: " << "\t" << vector_racuni[i+1] << "\t" << "Stanje: " << "\t" << vector_racuni[i+2];
-				break;
-			}
 		}
 	}
 }
