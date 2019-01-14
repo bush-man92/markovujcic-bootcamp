@@ -52,9 +52,21 @@ class Racun{
 		}
 		void uplata(int uplata) {
 			set_stanje_racuna(get_stanje_racuna() + uplata);
+			for (int i = 2; i < vector_racuni.size(); i += 4) {
+				if (vector_racuni[i] == get_broj_racuna_str()) {
+					vector_racuni[i + 1] = get_stanje_racuna_str();
+				}
+			}
+			save_racun();
 		}
 		void isplata(int isplata) {
 			set_stanje_racuna(get_stanje_racuna() - isplata);
+			for (int i = 2; i < vector_racuni.size(); i += 4) {
+				if (vector_racuni[i] == get_broj_racuna_str()) {
+					vector_racuni[i + 1] = get_stanje_racuna_str();
+				}
+			}
+			save_racun();
 		}
 		void set_tip_racuna(string tip) {
 			tip_racuna = tip;
@@ -148,6 +160,7 @@ void entry(string welcome) {
 	top(welcome);
 	cout << "Upisite 1 za logiranje" << endl;
 	cout << "Upisite 2 za registriranje" << endl;
+	cout << "Upisite 3 za izlazak" << endl;
 	int choice;
 	cin >> choice;
 	if (choice == 1) {
@@ -155,6 +168,8 @@ void entry(string welcome) {
 	}
 	else if (choice == 2) {
 		upis(welcome, 2);
+	}
+	else if (choice == 3) {
 	}
 	else {
 		entry(welcome);
@@ -224,7 +239,7 @@ void upis(string welcome, int check) {
 	}
 	else if(provjera(ime, prezime, lozinka, welcome) == true && check == 1) {
 		string id = "";
-		for (int i = 2; i < vector_korisnici.size(); i += 3) {
+		for (int i = 2; i < vector_korisnici.size(); i += 4) {
 			if (lozinka == vector_korisnici[i]) {
 				id = vector_korisnici[i + 1];
 			}
@@ -270,7 +285,7 @@ bool racuni_provjera(string id) {
 				return true;
 			}
 			else {
-				return false;
+				continue;
 			}
 		}
 	}
@@ -350,6 +365,39 @@ void stvaranje_racuna(Korisnik korisnik1, string top2) {
 	}
 }
 
+void special_account_menu(Racun racun1, Korisnik korisnik1) {
+	string top3 = racun1.get_broj_racuna_str() + "    " + racun1.get_tip_racuna() + "     " + racun1.get_stanje_racuna_str();
+	top(top3);
+	cout << "Stisnite 1 za uplatu na racun" << endl;
+	cout << "Stisnite 2 za isplatu s racuna" << endl;
+	cout << "Stisnite 3 za povratak na izbornik racuna" << endl;
+	int choice;
+	cin >> choice;
+	if (choice == 1) {
+		top(top3);
+		cout << "Koliko zelite uplatiti?" << endl;
+		int uplata;
+		cin >> uplata;
+		racun1.uplata(uplata);
+		special_account_menu(racun1, korisnik1);
+	}
+	else if (choice == 2) {
+		top(top3);
+		cout << "Koliko zelite da Vam se isplati?" << endl;
+		int isplata;
+		cin >> isplata;
+		racun1.isplata(isplata);
+		special_account_menu(racun1, korisnik1);
+		
+	}
+	else if (choice == 3) {
+		account_menu(korisnik1);
+	}
+	else {
+		special_account_menu(racun1, korisnik1);
+	}
+}
+
 void account_menu(Korisnik korisnik1) {
 	string top2 = korisnik1.get_name() + " " + korisnik1.get_surname();
 	top(top2);
@@ -381,10 +429,18 @@ void account_menu(Korisnik korisnik1) {
 		cout << endl;
 		cout << "Odaberite racun kojim zelite poslovati" << endl;
 		cout << "Stisnite 0 za stvaranje novog racuna" << endl;
+		cout << "Stisnite 99 za vracanje logout" << endl;
 		int choice;
 		cin >> choice;
 		if (choice == 0) {
 			stvaranje_racuna_meni(korisnik1, top2);
+		}
+		else if(choice < racuni_korisnika.size()) {
+			special_account_menu(racuni_korisnika[choice - 1], korisnik1);
+		}
+		else if (choice == 99) {
+			string welcome =  "Dobrodosli u Banka.app";
+			entry(welcome);
 		}
 		else {
 			account_menu(korisnik1);
