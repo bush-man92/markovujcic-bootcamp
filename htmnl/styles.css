@@ -1,0 +1,65 @@
+
+p{
+	color: black;
+	font-family: Times New Roman;
+	font-weight: bold;
+}
+
+body{
+	background: grey;
+}
+
+p{
+	background-color: transparent;
+}
+
+ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #e7e7e7;
+	background-color: black;
+}
+
+li {
+	float: left;
+}
+
+li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 30px 32px;
+	text-decoration: none;
+}
+
+li a:hover:not(.active) {
+	background-color: red;
+}
+
+li a.active {
+	color: black;
+	background-color: #4CAF50;
+}
+
+img { 
+  width: 7%; 
+}
+
+a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 30px 32px;
+	text-decoration: none;
+}
+
+a:hover:not(.active) {
+	background-color: red;
+}
+
+a.active {
+	color: black;
+	background-color: #4CAF50;
+}
