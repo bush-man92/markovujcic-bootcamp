@@ -22,3 +22,11 @@ tekuci
 tekuci
 152
 9282
+19
+ziro
+191
+5000
+19
+tekuci
+192
+0
